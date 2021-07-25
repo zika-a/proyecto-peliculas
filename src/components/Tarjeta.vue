@@ -1,11 +1,14 @@
 <template>
-  <div class="shadow-sm p-3 my-3 contenedor">
-    <h3>{{ idx }}</h3>
-    <h4>{{ title }}</h4>
+  <router-link
+    :to="`/pelicula/detalle/${idx}`"
+    class=" shadow p-3 my-3 text-decoration-none contenedor text-secondary border bg-light"
+  >
+    <h6>{{ idx }}</h6>
+    <h4 class="text-primary">{{ title }}</h4>
     <h4>{{ director }}</h4>
     <h5>{{ fecha }}</h5>
-    <h5>{{ score }}</h5>
-  </div>
+    <h5 v-if="score > 80">{{ score }}</h5>
+  </router-link>
 </template>
 
 <script>
@@ -16,7 +19,7 @@ export default {
     title: String,
     director: String,
     fecha: String,
-    score: String,
+    score: Number,
   },
 };
 </script>

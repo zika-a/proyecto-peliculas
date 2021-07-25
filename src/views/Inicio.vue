@@ -1,18 +1,20 @@
 <template>
-  <div>
+  <div class="bg-body">
     <Header :referencia="ref" :imagen="imagen" titulo="Peliculas"></Header>
-    <div class="row row-cols-auto propio justify-content-evenly cuerpo">
+    <div v-if="loading">Cargando...</div>
+    <div v-else class="row row-cols-auto propio justify-content-evenly cuerpo">
       <Tarjeta
-        v-for="num in ciclo"
-        :key="num"
-        idx="Este es el id"
-        title="Este es el titulo"
-        director="El director"
-        fecha="30 - 10 - 2010"
-        score="80"
+        v-for="pelicula in peliculas"
+        :key="pelicula.id"
+        :idx="pelicula.id"
+        :title="pelicula.title"
+        :director="pelicula.director"
+        :fecha="pelicula.release_date"
+        :score="parseInt(pelicula.rt_score)"
       ></Tarjeta>
     </div>
     <Footer
+      class="position-sticky"
       name="Ordóñez Benítez Abraham Alexis"
       git="https://github.com/zika-a"
     ></Footer>
@@ -23,6 +25,7 @@
 import Footer from "../components/Footer.vue";
 import Header from "../components/Header.vue";
 import Tarjeta from "../components/Tarjeta.vue";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "Inicio",
   components: {
@@ -30,9 +33,20 @@ export default {
     Header,
     Tarjeta,
   },
+  computed: {
+    ...mapState(["loading", "peliculas"]),
+  },
+  methods: {
+    ...mapActions(["getPeliculas"]),
+    vistaAgregar() {
+      this.$router.push({ name: "Detalle" });
+    },
+  },
+  mounted() {
+    this.getPeliculas();
+  },
   data() {
     return {
-      ciclo: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       ref: "https://ghibliapi.herokuapp.com/#tag/Films",
       imagen: "https://ghibliapi.herokuapp.com/images/logo.svg",
     };

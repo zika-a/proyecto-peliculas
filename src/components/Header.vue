@@ -1,5 +1,5 @@
 <template>
-  <header class="sombra position-relative">
+  <header class="position-sticky">
     <nav class="navbar navbar-light bg-light">
       <div class="container mx-auto">
         <a class="mx-auto navbar-brand" :href="referencia" target="_blank">
@@ -33,9 +33,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.sombra {
-  box-shadow: 0px 10px 10px #e0e0e0;
-}
-</style>
