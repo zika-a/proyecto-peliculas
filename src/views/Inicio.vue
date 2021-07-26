@@ -1,7 +1,11 @@
 <template>
   <div class="bg-body">
     <Header :referencia="ref" :imagen="imagen" titulo="Peliculas"></Header>
-    <div v-if="loading">Cargando...</div>
+    <div
+      v-if="loading"
+      class="spinner-border text-primary m-3"
+      role="status"
+    ></div>
     <div v-else class="row row-cols-auto propio justify-content-evenly cuerpo">
       <Tarjeta
         v-for="pelicula in peliculas"
@@ -55,9 +59,6 @@ export default {
 </script>
 
 <style scoped>
-.uno {
-  background-color: red;
-}
 .cuerpo {
   width: 100%;
 }

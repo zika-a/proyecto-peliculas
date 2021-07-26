@@ -1,6 +1,12 @@
 <template>
-  <div class="container mt-3 text-secondary">
+  <div
+    v-if="loading"
+    class="spinner-border text-primary m-3"
+    role="status"
+  ></div>
+  <div v-else class="container mt-3 text-secondary">
     <h1>Detalle de la película</h1>
+
     <h6>Id: {{ pelicula.id }}</h6>
     <h2 class="text-primary">Título: {{ pelicula.title }}</h2>
     <h3>Título original: {{ pelicula.original_title }}</h3>
@@ -10,8 +16,9 @@
     <h4>Duración: {{ pelicula.running_time }}</h4>
     <h3>
       Score:
-      <span :class="[isBigger() ? 'text-success':'text-warning']">{{ pelicula.rt_score }}</span
-      >
+      <span :class="[isBigger() ? 'text-success' : 'text-warning']">{{
+        pelicula.rt_score
+      }}</span>
     </h3>
   </div>
 </template>
@@ -28,19 +35,18 @@ export default {
     Header,
     Footer,
   },
-  computed:{
-    ...mapState(["pelicula"]),
+  computed: {
+    ...mapState(["pelicula", "loading"]),
   },
   methods: {
     ...mapActions(["getPelicula"]),
-    isBigger(){
-      return parseInt(this.pelicula.rt_score) >= 80; 
-    }
+    isBigger() {
+      return parseInt(this.pelicula.rt_score) >= 80;
+    },
   },
   mounted() {
     this.getPelicula(this.$route.params.idx);
   },
-  
 };
 </script>
 <style scoped>
